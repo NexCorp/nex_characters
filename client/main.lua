@@ -48,11 +48,6 @@ Citizen.CreateThread(function()
         end)
     end
 
-    SendNUIMessage({
-        action = "setServerConfig",
-        title = Config.ServerName,
-    })
-
     DisplayHud(false)
     DisplayRadar(false)
 
@@ -63,6 +58,11 @@ Citizen.CreateThread(function()
     TriggerEvent('nex:characters:PlayersIsSwitching')
     
     Citizen.Wait(2000)
+
+    SendNUIMessage({
+        action = "setServerConfig",
+        title = Config.ServerName,
+    })
 
     NEX.TriggerServerCallback('nex:characters:isPlayerReadyForPlay', function(isReady)
         -- isReady check if player is already log in into the world, so you can restart the script without problems.
@@ -87,7 +87,7 @@ Citizen.CreateThread(function()
                 PreparePedForSelector(true)
                 SetNuiFocus(true, true)
             end)
-            NEX.UI.SendAlert('inform', '¡Bienvenido a Good Life!', {})
+            NEX.UI.SendAlert('inform', '¡Bienvenido a '.. Config.ServerName ..'!', {})
         end
     end)
 end)

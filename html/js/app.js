@@ -136,7 +136,7 @@ $(function () {
         var lastname = $('#lastname').val()
         var height = $('#height').val()
 
-        $.post('http://nex_characters/CreatingNewCharacter', JSON.stringify({
+        $.post('https://nex_characters/CreatingNewCharacter', JSON.stringify({
             firstname: firstname,
             lastname: lastname,
             height: height,
@@ -321,47 +321,11 @@ $(function () {
         }
     }
 
-    NECharacter.PlaySound = function (data) {
-        var soundName = data.sound
-
-        if (currentSound !== null) {
-            currentSound.stop()
-            currentSound = null
-        }
-
-        currentSound = new Howl({
-            preload: true,
-            volume: 0.4,
-            src: ['https://cdn.ukader.net/NexusLife/v2/' + soundName + '.mp3']
-        });
-
-        currentSound.play();
-    }
-
-    NECharacter.StartTutorialUI = function () {
-        $('.tutorial-ui').fadeIn(1000)
-        setTimeout(() => {
-            $('.tutorial-text').fadeIn(2500)
-            setTimeout(() => {
-                $('.tutorial-img').fadeIn(2000)
-                setTimeout(() => {
-                    $('.tutorial-img').fadeOut(2000)
-                }, 5000);
-            }, 10000);
-        }, 3000);
-    }
-
     window.addEventListener('message', function (event) {
         switch (event.data.action) {
             case 'setServerConfig':
                 $('.serverTitle').html(event.data.title);
                 break;
-            case 'playSound':
-                NECharacter.PlaySound(event.data)
-                break
-            case 'startTutorialIntro':
-                NECharacter.StartTutorialUI()
-                break
             case 'stopTutorialIntro':
                 $('.tutorial-ui').fadeOut(3000)
                 break

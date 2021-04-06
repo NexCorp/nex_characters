@@ -161,7 +161,6 @@ Citizen.CreateThread(function()
                 end
             end
         end
-
         Citizen.Wait(300)
         cb(canContinue)
     end)
