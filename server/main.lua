@@ -229,7 +229,7 @@ AddEventHandler('nex:characters:prepareForSwitching', function(charId)
 		if xPlayer then
 			NEX.SwitchPlayerData(xPlayer, _source, _charId, function(canSwitch)
 				if canSwitch then
-					xPlayer.showNotification('~g~Personaje cargado, iniciando sesión...')
+					xPlayer.showNotification('~g~Character loaded, logging in...')
 				end
 			end)
 		end
