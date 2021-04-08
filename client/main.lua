@@ -87,7 +87,7 @@ Citizen.CreateThread(function()
                 PreparePedForSelector(true)
                 SetNuiFocus(true, true)
             end)
-            NEX.UI.SendAlert('inform', '¡Bienvenido a '.. Config.ServerName ..'!', {})
+            NEX.UI.SendAlert('inform', 'Welcome to '.. Config.ServerName ..'!', {})
         end
     end)
 end)
@@ -144,17 +144,17 @@ end)
 AddEventHandler('nex:Characters:ExitToMainMenu', function()
     -- Check if player is already switching
     if isPlayerSwitching then
-        return NEX.UI.SendAlert("error", "Whoops!", "Espera antes de volver a cambiar personaje...", 3000, {})
+        return NEX.UI.SendAlert("error", "Whoops!", "Please wait before changing character again...", 3000, {})
     end
 
     if GetEntityHealth(PlayerPedId()) < 150 then
-        return NEX.UI.SendAlert("error", "Whoops!", "Estas con 50% o menos de salud.", 3000, {})
+        return NEX.UI.SendAlert("error", "Whoops!", "You have 50% or less health.", 3000, {})
     end
 
     if IsPedInAnyVehicle(PlayerPedId(), true) then
-        return NEX.UI.SendAlert("error", "Whoops!", "No puedes cambiar de personaje cuando estas en un vehículo.", 3000, {})
+        return NEX.UI.SendAlert("error", "Whoops!", "You cannot change characters when in a vehicle.", 3000, {})
     elseif isInSwitchingMenu then
-        return NEX.UI.SendAlert("error", "Whoops!", "Ya estas en el menú de selección.", 3000, {})
+        return NEX.UI.SendAlert("error", "Whoops!", "You are already in the selection menu.", 3000, {})
     end
 
     --Trigger with NEX-BASICS
@@ -178,7 +178,7 @@ AddEventHandler('nex:Characters:ExitToMainMenu', function()
                     })
                 end)
             else
-                return NEX.UI.SendAlert("error", "Whoops!", "No puedes cambiar de personaje en este estado. Si te vas a dormir, al regresar perderas todas tus pertenencias.", 3000, {})
+                return NEX.UI.SendAlert("error", "Whoops!", "You cannot change characters in this state. If you go to sleep, when you return you will lose all your belongings.", 3000, {})
             end
         end)
     else
@@ -280,17 +280,17 @@ RegisterNUICallback('DeleteCharacter', function(data, cb)
     characterSelected = data.charSelected
     NEX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'nex_characters_CK_Code',
 	{
-		title = ('Íngresa el código de CK otorgado por moderación:')
+		title = ('Enter the CK code granted for moderation:')
 	},
 	function(data, menu)
 		local ckCode = tonumber(data.value)
 		if ckCode == nil then
-		    return NEX.UI.SendAlert("error", "Whoops!", "El Código debe ser númerico.", 2000, {})
+		    return NEX.UI.SendAlert("error", "Whoops!", "The code must be numerical.", 2000, {})
         else
             if not isWaiting then
                 NEX.TriggerServerCallback('nex:characters:ValidateCK', function(isValid)
                     if isValid then
-                        NEX.UI.SendAlert("success", "¡Código válidado!", "Se procedera a eliminar tu personaje...", 4000, {})
+                        NEX.UI.SendAlert("success", "Valid code!", "It will proceed to eliminate your character...", 4000, {})
                         menu.close()
                         SetNuiFocus(true, true)
                         SendNUIMessage({
@@ -311,8 +311,8 @@ RegisterNUICallback('DeleteCharacter', function(data, cb)
                                 response = {
                                     characters = charData,
                                     type = "success",
-                                    title = "PERSONAJE ELIMINADO",
-                                    msg = "¡Su personaje fue eliminado de forma PERMANENTE!"
+                                    title = "REMOVED CHARACTER",
+                                    msg = "Their character was PERMANENTLY eliminated!"
                                 },
                             })
                         end)
@@ -320,12 +320,12 @@ RegisterNUICallback('DeleteCharacter', function(data, cb)
                         SendNUIMessage({
                             action = "canSelectAgain",
                         })
-                        NEX.UI.SendAlert("error", "Whoops!", "Este código no es válido.", 4000, {})
+                        NEX.UI.SendAlert("error", "Whoops!", "This code is not valid.", 4000, {})
                     end
                 end, ckCode, characterSelected)
                 isWaiting = true
             else
-                NEX.UI.SendAlert("error", "Whoops!", "Por favor espera unos segundos antes de volver a verificar.", 4000, {})
+                NEX.UI.SendAlert("error", "Whoops!", "Please wait a few seconds before checking again.", 4000, {})
                 Citizen.Wait(3000)
                 isWaiting = false
             end
@@ -354,8 +354,8 @@ RegisterNUICallback('CreatingNewCharacter', function(data, cb)
                     response = {
                         characters = charData,
                         type = "success",
-                        title = "NUEVO PERSONAJE",
-                        msg = "¡Nuevo personaje creado con éxito!"
+                        title = "NEW CHARACTER",
+                        msg = "New character created successfully!"
                     },
                 })
             end)
@@ -366,8 +366,8 @@ RegisterNUICallback('CreatingNewCharacter', function(data, cb)
                 responseState = false,
                 response = {
                     type = "error",
-                    title = "Error Encontrado",
-                    msg = "Verifica que todos los campos sean correctos, si el problema persiste, contacta con un administrador."
+                    title = "Error Found",
+                    msg = "Verify that all the fields are correct, if the problem persists, contact an administrator."
                 }
             })
         end
@@ -389,7 +389,7 @@ RegisterNUICallback('PlayWithHim', function(data, cb)
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
     Citizen.Wait(2000)
-    NEX.ShowNotification('~y~[~b~PERSONAJE~y~] ~g~Tu personaje se ha cargado con éxito.')
+    NEX.ShowNotification('~y~[~b~CHARACTER~y~] ~g~Your character has been successfully uploaded.')
 end)
 
 --[[
@@ -414,7 +414,7 @@ function LoadPlayerData()
     Citizen.Wait(1000)
     PlaySoundFrontend(-1, "Zoom_Out", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1)
     PlaySoundFrontend(-1, "CAR_BIKE_WHOOSH", "MP_LOBBY_SOUNDS", 1)
-    NEX.UI.SendAlert("inform", "Cargando...", "Estamos cargando tus opciones, por favor espera.", 4000, {})
+    NEX.UI.SendAlert("inform", "Loading...", "We are loading your options, please wait.", 4000, {})
     TriggerServerEvent('nex:Clothing:TryLoadCharacter') 
     StopSound(-1)
     ReleaseSoundId(-1)
@@ -423,7 +423,7 @@ function LoadPlayerData()
     Citizen.Wait(7000)
     PreparePedForSelector(false)
     TriggerEvent('nex:Core:onPlayerSpawn')
-    NEX.UI.SendAlert("inform", "Cargando...", "Tu personaje ha sido cargado con éxito", 4000, {})
+    NEX.UI.SendAlert("inform", "Loading...", "Your character has been successfully uploaded", 4000, {})
     disabledKeys = false
     TriggerEvent('nex:UI:HUD:Display', true)
     TriggerEvent('nex:Tattoos:LoadPlayerTattooes')

@@ -31,7 +31,7 @@ Config = {}
 -- Set first spawn of each character
 Config.FirstSpawnPoint = vector3(-539.2, -214.52, 40.0)
 
-Config.ServerName = "NexCore RP"
+Config.ServerName = "Capital City"
 
 --[[
     Depending on the client's load, it may exist that sometimes the interface does not load correctly, therefore, 
