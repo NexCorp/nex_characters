@@ -31,6 +31,7 @@ Config = {}
 -- Set first spawn of each character
 Config.FirstSpawnPoint = vector3(-539.2, -214.52, 40.0)
 
+Config.EnableRadarOnSpawn = false
 Config.ServerName = "Capital City"
 
 --[[

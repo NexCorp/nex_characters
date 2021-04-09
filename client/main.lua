@@ -427,6 +427,11 @@ function LoadPlayerData()
     disabledKeys = false
     TriggerEvent('nex:UI:HUD:Display', true)
     TriggerEvent('nex:Tattoos:LoadPlayerTattooes')
+
+    if Config.EnableRadarOnSpawn then
+        DisplayRadar(true)
+    end
+
     isPlayerSwitching = false
 end
 
